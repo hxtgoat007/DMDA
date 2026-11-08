@@ -1,5 +1,4 @@
-
-linear
+# Linear Regression
 
 # Step 1: Create sample data
 Hours <- c(1, 2, 3, 4, 5, 6)
@@ -37,8 +36,8 @@ plot(
 # Step 8: Draw regression line
 abline(model, col = "red", lwd = 2)
 
-
-multiple
+#===============================================#
+# Multiple Regression
 
 # Step 1: Independent variables
 Experience <- c(1, 2, 3, 4, 5, 6)
@@ -80,3 +79,176 @@ plot(
 abline(lm(Salary ~ Experience, data = employee),
        col = "red",
        lwd = 2)
+
+#===============================================#
+# Logistic Regression
+
+# Step 1: Create data
+Hours <- c(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)
+Marks <- c(35, 40, 45, 50, 55, 60, 65, 70, 75, 80)
+Attendance <- c(60, 65, 70, 72, 75, 78, 80, 85, 90, 95)
+
+# 0 = Fail, 1 = Pass
+Result <- c(0, 0, 0, 0, 0, 1, 1, 1, 1, 1)
+
+# Step 2: Create data frame
+student_data <- data.frame(
+  Hours = Hours,
+  Marks = Marks,
+  Attendance = Attendance,
+  Result = Result
+)
+
+# Display data
+print(student_data)
+
+# Step 3: Create Logistic Regression Model
+logistic_model <- glm(
+  Result ~ Hours + Marks + Attendance,
+  data = student_data,
+  family = binomial
+)
+
+# Step 4: Display model
+cat("\nLogistic Regression Model:\n")
+print(logistic_model)
+
+# Step 5: Display model summary
+cat("\nModel Summary:\n")
+print(summary(logistic_model))
+
+# Step 6: Calculate probability
+probability <- predict(
+  logistic_model,
+  newdata = student_data,
+  type = "response"
+)
+
+cat("\nProbability of Passing:\n")
+print(round(probability, 3))
+
+# Step 7: Convert probability to Pass/Fail
+predicted_result <- ifelse(probability >= 0.5, 1, 0)
+
+cat("\nPredicted Result:\n")
+print(predicted_result)
+
+# Step 8: Display Pass/Fail status
+status <- ifelse(predicted_result == 1, "Pass", "Fail")
+
+cat("\nPredicted Status:\n")
+print(status)
+
+# Step 9: Plot probability
+plot(
+  Hours,
+  probability,
+  type = "b",
+  pch = 19,
+  xlab = "Hours Studied",
+  ylab = "Probability of Passing",
+  main = "Logistic Regression: Hours vs Passing Probability"
+)
+
+# Step 10: Decision Threshold
+abline(h = 0.5, lty = 2, col = "red")
+grid()
+
+# Step 11: Predict for a new student
+new_student <- data.frame(
+  Hours = 7,
+  Marks = 70,
+  Attendance = 82
+)
+
+new_probability <- predict(
+  logistic_model,
+  newdata = new_student,
+  type = "response"
+)
+
+cat("\nPrediction for New Student:\n")
+print(round(new_probability, 3))
+
+new_result <- ifelse(new_probability >= 0.5, "Pass", "Fail")
+
+cat("\nNew Student Result:\n")
+print(new_result)
+
+#===============================================#
+# Poisson Regression
+
+# Step 1: Create data
+Hours <- c(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)
+
+Attendance <- c(60, 65, 70, 72, 75, 78, 80, 85, 90, 95)
+
+Assignments <- c(1, 2, 2, 3, 4, 4, 5, 6, 7, 8)
+
+# Step 2: Create data frame
+student_data <- data.frame(
+  Hours = Hours,
+  Attendance = Attendance,
+  Assignments = Assignments
+)
+
+# Display data
+print(student_data)
+
+# Step 3: Create Poisson Regression Model
+poisson_model <- glm(
+  Assignments ~ Hours + Attendance,
+  data = student_data,
+  family = poisson
+)
+
+# Step 4: Display model
+cat("\nPoisson Regression Model:\n")
+print(poisson_model)
+
+# Step 5: Display summary
+cat("\nModel Summary:\n")
+print(summary(poisson_model))
+
+# Step 6: Display coefficients
+cat("\nCoefficients:\n")
+print(coef(poisson_model))
+
+# Step 7: Predict number of assignments
+predicted_assignments <- predict(
+  poisson_model,
+  newdata = student_data,
+  type = "response"
+)
+
+cat("\nPredicted Assignments:\n")
+print(round(predicted_assignments, 2))
+
+# Step 8: Plot actual vs predicted
+plot(
+  student_data$Assignments,
+  predicted_assignments,
+  pch = 19,
+  col = "blue",
+  xlab = "Actual Assignments",
+  ylab = "Predicted Assignments",
+  main = "Poisson Regression: Actual vs Predicted"
+)
+
+# Reference line
+abline(a = 0, b = 1, col = "red", lwd = 2)
+
+# Step 9: Predict for a new student
+new_student <- data.frame(
+  Hours = 9,
+  Attendance = 90
+)
+
+prediction <- predict(
+  poisson_model,
+  newdata = new_student,
+  type = "response"
+)
+
+cat("\nPredicted Number of Assignments for New Student:\n")
+print(round(prediction, 2))
