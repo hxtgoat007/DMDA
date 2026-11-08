@@ -47,15 +47,9 @@ print(covariance)
 
 
 # 7. LINEAR REGRESSION
-x <- c(5, 7, 3, 6, 8)
-y <- c(65, 80, 50, 70, 90)
+Hours <- c(1, 2, 3, 4, 5, 6)
+Marks <- c(35, 40, 50, 55, 65, 75)
 
-reg <- lm(y ~ x)
-print(reg)
-plot(x, y,
-     main = "Linear Regression",
-     xlab = "X",
-     ylab = "Y",
-     pch = 19)
-
-abline(reg, col = "blue")
+model <- lm(Marks ~ Hours)
+plot(Hours, Marks)
+abline(model, col="blue")
