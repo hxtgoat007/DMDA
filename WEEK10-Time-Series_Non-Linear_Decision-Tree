@@ -1,4 +1,4 @@
-10a)TIME SERIES ANALYSIS USING R
+# 10a)TIME SERIES ANALYSIS USING R
 # Monthly sales data
 sales <- c(100, 120, 130, 150, 170, 180,
            200, 210, 230, 250, 270, 290)
@@ -26,8 +26,8 @@ model <- lm(sales ~ time)
 # Display regression model
 print(summary(model))
 
-
-10b) NON-LINEAR LEAST SQUARES USING R
+#========================================#
+# 10b) NON-LINEAR LEAST SQUARES USING R
 # Sample data
 year <- 1:8
 population <- c(
@@ -57,7 +57,8 @@ plot(
     ylab = "Population",
     pch = 19
 )
-# Add nonlinear regression curvelines(
+# Add nonlinear regression curve
+lines(
     year,
     predicted,
     lwd = 2
@@ -69,16 +70,11 @@ new_prediction <- predict( model, newdata = newdata )
 # Display prediction for year 10 
 print(new_prediction)
 
-10c) DECISION TREE USING R
-
-# =========================================
-# DECISION TREE USING R
-# =========================================
-
+#========================================#
+# 10c) DECISION TREE USING R
 # Load packages
 library(rpart)
 library(rpart.plot)
-
 
 # Create dataset
 data <- data.frame(
@@ -89,14 +85,11 @@ data <- data.frame(
   )
 )
 
-
 # Convert Result to factor
 data$Result <- as.factor(data$Result)
 
-
 # Display dataset
 print(data)
-
 
 # Build Decision Tree
 model <- rpart(
@@ -105,10 +98,8 @@ model <- rpart(
   method = "class"
 )
 
-
 # Display model
 print(model)
-
 
 # Draw Decision Tree
 rpart.plot(
