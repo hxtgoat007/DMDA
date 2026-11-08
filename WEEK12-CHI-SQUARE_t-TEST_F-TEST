@@ -1,7 +1,4 @@
-# a)	χ² TEST — CHI-SQUARE TEST
-# ==========================================
-# CHI-SQUARE TEST
-# ==========================================
+# a) CHI-SQUARE TEST
 # Step 1: Create data
 data <- matrix(c(6, 5, 4, 4, 6, 5), nrow = 2, byrow = TRUE)
 # Step 2: Add names
@@ -27,11 +24,8 @@ barplot(
         legend.text = TRUE
 )
 
-
-# b)	t-TEST
-# ==========================================
-# PAIRED t-TEST
-# ==========================================
+#==========================================#
+# b) t-TEST
 # Step 1: Enter data
 before <- c(55, 60, 58, 62, 57,
             59, 61, 56, 60, 58)
@@ -50,7 +44,7 @@ result <- t.test(before,
                  paired = TRUE)
 print(result)
 # Step 4: Boxplot
-png(file="boxplot.png")
+png(file="ttest_boxplot.png")
 boxplot(before, after,
         names = c("Before", "After"),
         main = "Marks Before and After Training",
@@ -58,11 +52,8 @@ boxplot(before, after,
         ylab = "Marks")
 dev.off()
 
-
-# c)	F-TEST
-# ==========================================
-# F-TEST
-# ==========================================
+#==========================================#
+# c) F-TEST
 # Step 1: Enter data
 classA <- c(55, 60, 58, 62, 57, 59, 61, 56, 60, 58)
 classB <- c(45, 70, 50, 75, 40, 65, 55, 80, 48, 72)
@@ -84,10 +75,8 @@ print(variance_B)
 result <- var.test(classA, classB)
 print(result)
 # Step 5: Boxplot
-png(file="boxplot.png")
-boxplot(
-        classA, 
-        classB,
+png(file="ftest_boxplot.png")
+boxplot(classA, classB,
         names = c("Class A", "Class B"),
         main = "Comparison of Variances",
         xlab = "Class",
