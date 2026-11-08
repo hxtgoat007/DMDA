@@ -52,3 +52,10 @@ y <- c(65, 80, 50, 70, 90)
 
 reg <- lm(y ~ x)
 print(reg)
+plot(x, y,
+     main = "Linear Regression",
+     xlab = "X",
+     ylab = "Y",
+     pch = 19)
+
+abline(reg, col = "blue")
